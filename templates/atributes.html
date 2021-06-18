@@ -1,0 +1,92 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div class="mx-auto col-md-7 pt-3">
+    <div class="mx-auto"></div>
+        {% with messages = get_flashed_messages()%}
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{message}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+    </div>
+    <h1>Los ultimos datos...</h1>
+    <div class="mx-auto pt-3">
+        <form class="needs-validation" novalidate action="/add_snipe" method="POST">
+            <div class="form-group">
+                <input type="text" name="name" class="form-control" id="validationCustom01" placeholder="Nombre" autocomplete="off" autofocus required>
+            </div>
+            <div class="form-group" style="min-width:38%; max-width:38%;">
+                <select class="form-control" name="model_select">
+                    <option>Seleccione modelo</option>
+                    {% for model in snipeModelsArr %}
+                    <option>{{loop.index}}. {{model.model}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group" style="min-width:38%; max-width:38%;">
+                <select class="form-control" name="status_select">
+                    <option>Seleccione estado</option>
+                    {% for status in snipeStatusArr %}
+                    <option>{{loop.index}}. {{status.status }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="text" name="price" placeholder="Precio (u$d)" class="form-control" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <input type="text" name="warranty_months" placeholder="Garanta (meses)" class="form-control" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <input type="text" name="order_number" placeholder="N° orden" class="form-control" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <input type="text" name="notes" placeholder="Comentario" class="form-control" autocomplete="off">
+            </div>
+            <div class="row mx-md-n5">
+                <div class="col px-md-5">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-secondary">
+                            Cargar a Snipe-IT
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="mx-auto col-md-7 pt-3">
+        <table class="mx-auto body table-bordered table-sm">
+            <thead>
+                <tr>
+                    <td>Serial number</td>
+                    <td>MAC Address</td>
+                    <td>Operations</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for asset in assetsArr %}
+                <tr>
+                    <td>{{ asset.serial_number }}</td>
+                    <td>{{ asset.mac_address }}</td>
+                    <td>
+                        <!-- class agregada con bootstrap, envia los botones (links) a una url-->
+                        <a href="/delete/{{ asset.id }}" class="btn btn-danger
+                            btn-delete">Borrar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

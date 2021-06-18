@@ -1,0 +1,98 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<img src="/static/img/logo.png" alt="mercadoLibreLogo" width="200px">
+    <h1>Loader</h1>
+
+    <div class="mx-auto">
+        <div class="mx-auto col-md-7">
+            {% with messages = get_flashed_messages()%}
+            {% if messages %}
+            {% for message in messages %}
+            {% if message == 'Ingrese S/N'%}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{message}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% elif message == 'Ingrese un formato correcto de MAC address'%}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{message}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% else %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{message}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+    <div class="mx-auto pt-3">
+        <form action="/add_asset" method="POST" onsubmit="return validar_input()">
+            <div class="form-group">
+                <input type="text" name="serial_number" id="serial_number" placeholder="Serial number" class="form-control" autocomplete="off" autofocus>
+            </div>
+            <div class="form-group">
+                <input type="text" name="mac_address" placeholder="MAC address" class="form-control" autocomplete="off">
+            </div>
+            <div class="row mx-md-n5">
+                <div class="col px-md-5">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-dark" value="Save">
+                            +Agregar
+                        </button>
+                    </div>
+                </div>
+                <div class="col px-md-5">
+                    <div class="form-group">
+                        <a href="/atributes" class="btn btn-light">
+                            Continuar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="mx-auto col-md-7 pt-3">
+            <table class=" mx-auto body table-bordered table-sm">
+                <thead>
+                    <tr>
+                        <td>Serial number</td>
+                        <td>MAC Address</td>
+                        <td>Opciones</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for asset in assets %}
+                    <tr>
+                        <td>{{ asset.serial_number }}</td>
+                        <td>{{ asset.mac_address }}</td>
+                        <td>
+                            <!-- class agregada con bootstrap, envia los botones (links) a una url-->
+                            <a href="/edit/{{ asset.id }}" class="btn btn-secondary bg-dark">Editar</a>
+                            <a href="/delete/{{ asset.id }}" class="btn btn-danger
+                                btn-delete">Borrar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% if assets %}
+            <div class="form-group pt-3">
+                <a href="/drop_arr_sn">
+                    <img src="/static/img/trash.png" alt="mercadoLibreLogo" width="35px">
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

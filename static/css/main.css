@@ -1,0 +1,64 @@
+body, .modal-body, .modal-footer {
+    background-color: rgb(234, 214, 72);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Lato', sans-serif;
+}
+
+invalid {
+    border: 2px solid #ff0000;
+}
+
+.modal-body {
+    color: #162c66;
+    font-size: 29px;
+}
+
+input {
+    border-radius: 15px;
+}
+
+
+h1 {
+    color: #162c66;
+}
+
+form {
+    background-color: rgb(234, 214, 72);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+select {
+    text-align: center;
+    text-align-last: center;
+    -moz-text-align-last: center;
+}
+
+    form input {
+        text-align: center;
+        width: 420px !important;
+    }
+
+    form button {
+        background-color: #162c66 !important
+    }
+
+#pongImage {
+    width: 400px;
+    border: solid 2px rgb(0,0,0);
+    padding: 5px;
+}
+
+.container1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+}
